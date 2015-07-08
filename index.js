@@ -1,5 +1,5 @@
 var d3 = require('d3')
-  , d3_interpolate_number = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g
+  , d3_interpolate_number = /(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g
 
 /*
  * This is similiar to d3's interpolateString, but adds some special magic.

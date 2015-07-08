@@ -11,6 +11,17 @@ test('d3 rounding basic', function (t) {
   t.end()
 })
 
+test('allows +/- prefix', function (t) {
+  t.equal(r('heyo +3%', 'heyo +5%')(.5), 'heyo +4%')
+  t.equal(r('+3%', '+5%')(.1), '+3%')
+  t.equal(r('+3%', '+5%')(.5), '+4%')
+  t.equal(r('+3%', '+5%')(1), '+5%')
+  t.equal(r(' + 3%', ' + 5%')(.5), ' + 4%')
+  t.equal(r(' + 3%', ' + 5%')(1), ' + 5%')
+  t.equal(r(' +3%', ' +5%')(1), ' +5%')
+  t.end()
+})
+
 test('rounds numbers w/o a decimal', function (t) {
   for (var i = 100; i >= 1; i--) {
     t.ok(r(300, 500)(1 / i).split('.').length == 1)

@@ -1,4 +1,5 @@
-var d3 = require('d3')
+var format = require('d3-format').format
+  , interpolateNumber = require('d3-interpolate').interpolateNumber
   , d3_interpolate_number = /(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g
 
 /*
@@ -50,8 +51,8 @@ module.exports = function (a, b) {
       // let's store how many decimals we'll use when we display the value as we transition
       var end = parseFloat(o.x)
         , decimals = Math.floor(end) === end ? 0 : (end.toString().split('.')[1].length || 0)
-      o.format = d3.format('.' + decimals + 'f')
-      o.x = d3.interpolateNumber(parseFloat(m[0]), end)
+      o.format = format('.' + decimals + 'f')
+      o.x = interpolateNumber(parseFloat(m[0]), end)
     }
   }
   while (i < n) {

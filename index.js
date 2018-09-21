@@ -48,10 +48,18 @@ module.exports = function (a, b) {
       n--
       i--
     } else {
+      // See https://github.com/d3/d3-interpolate/issues/40
+
+      // Count the leading zeros on this number
+      var leadingZeros = o.x.length - String(parseFloat(o.x)).length
+
+      // If we have leading zeros, make sure the number is properly padded
+      var pad = leadingZeros ? '0' + o.x.length  : ''
+
       // let's store how many decimals we'll use when we display the value as we transition
       var end = parseFloat(o.x)
         , decimals = Math.floor(end) === end ? 0 : (end.toString().split('.')[1].length || 0)
-      o.format = format('.' + decimals + 'f')
+      o.format = format(pad + '.' + decimals + 'f')
       o.x = interpolateNumber(parseFloat(m[0]), end)
     }
   }

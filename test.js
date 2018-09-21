@@ -11,6 +11,11 @@ test('d3 rounding basic', function (t) {
   t.end()
 })
 
+test('interpolates with commas', function (t) {
+  t.equal(r('4,418', '4,080')(1), '4,080')
+  t.end()
+})
+
 test('allows +/- prefix', function (t) {
   t.equal(r('heyo +3%', 'heyo +5%')(.5), 'heyo +4%')
   t.equal(r('+3%', '+5%')(.1), '+3%')

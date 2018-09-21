@@ -11,6 +11,18 @@ test('d3 rounding basic', function (t) {
   t.end()
 })
 
+test('interpolates with commas', function (t) {
+  t.equal(r('4,418', '4,080')(1), '4,080')
+
+  t.equal(r('4,418', '800')(1), '800')
+  t.equal(r('4,418', '800,000')(1), '800,000')
+  t.equal(r('4,418', '800,300')(1), '800,300')
+  t.equal(r('4,418', '800,003')(1), '800,003')
+  t.equal(r('4,418', '3')(1), '3')
+  t.equal(r('4,418', '$300,000,030.45')(1), '$300,000,030.45')
+  t.end()
+})
+
 test('allows +/- prefix', function (t) {
   t.equal(r('heyo +3%', 'heyo +5%')(.5), 'heyo +4%')
   t.equal(r('+3%', '+5%')(.1), '+3%')

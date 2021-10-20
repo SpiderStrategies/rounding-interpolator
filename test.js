@@ -11,6 +11,15 @@ test('d3 rounding basic', function (t) {
   t.end()
 })
 
+test('interpolates currency', function (t) {
+  t.equal(r('$20', '$35')(0), '$20')
+  t.equal(r('$20', '$35')(1), '$35')
+  t.equal(r('$20', '$35.00')(0), '$20')
+  t.equal(r('$20', '$35.00')(1), '$35')
+
+  t.end()
+})
+
 test('interpolates with commas', function (t) {
   t.equal(r('4,418', '4,080')(1), '4,080')
 

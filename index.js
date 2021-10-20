@@ -51,7 +51,27 @@ module.exports = function (a, b) {
       // See https://github.com/d3/d3-interpolate/issues/40
 
       // Count the leading zeros on this number
-      var leadingZeros = o.x.length - String(parseFloat(o.x)).length
+      let parsed = String(parseFloat(o.x))
+        , splitParsed = o.x.split('.')
+
+      // See https://github.com/SpiderStrategies/Scoreboard/issues/42017
+      // Check if parseFloat chopped off `.00`
+      if (splitParsed.length > 1) {
+
+        // How many decimals
+        let allZeros = true // Assume all zeros
+        for (let decimalCounter = 0; decimalCounter < splitParsed[1].length; decimalCounter++) {
+          if (splitParsed[1].charAt(decimalCounter) !== '0') {
+            allZeros = false // One of the decimal values is not a 0
+          }
+        }
+
+        if (allZeros) {
+          // Append the decimals that were removed from parseFloat
+          parsed += `.${splitParsed[1]}`
+        }
+      }
+      var leadingZeros = o.x.length - parsed.length
 
       // If we have leading zeros, make sure the number is properly padded
       var pad = leadingZeros ? '0' + o.x.length  : ''
